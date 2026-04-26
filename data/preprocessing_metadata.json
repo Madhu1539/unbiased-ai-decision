@@ -1,0 +1,167 @@
+{
+  "pipeline_version": "2.0",
+  "created_at": "2026-04-26T19:27:53.781591+00:00",
+  "random_state": null,
+  "library_versions": {
+    "scikit-learn": "1.8.0",
+    "pandas": "3.0.2",
+    "numpy": "2.4.4",
+    "scipy": "1.17.1"
+  },
+  "config": {
+    "num_imputer": "none",
+    "cat_imputer": "none",
+    "outlier_handling": "iqr",
+    "rare_threshold": 0.05,
+    "low_card_encoding": "ohe",
+    "high_card_encoding": "frequency",
+    "high_card_threshold": 15,
+    "drop_correlated": false,
+    "correlation_threshold": 0.95,
+    "force_reapply": false,
+    "drop_cols_before_pipeline": []
+  },
+  "feature_names_before": [
+    "age",
+    "sex",
+    "cp",
+    "trestbps",
+    "chol",
+    "fbs",
+    "restecg",
+    "thalach",
+    "exang",
+    "oldpeak",
+    "slope",
+    "ca",
+    "thal"
+  ],
+  "feature_names_after": [
+    "age",
+    "sex",
+    "cp",
+    "trestbps",
+    "chol",
+    "restecg",
+    "thalach",
+    "exang",
+    "oldpeak",
+    "slope",
+    "ca",
+    "thal"
+  ],
+  "n_features_before": 13,
+  "n_features_after": 12,
+  "dropped": {
+    "variance": [
+      "fbs"
+    ],
+    "correlation": []
+  },
+  "transformation_summary": [
+    {
+      "feature": "age",
+      "type": "numeric",
+      "ops": [
+        "none imputation",
+        "IQR outlier capping"
+      ]
+    },
+    {
+      "feature": "sex",
+      "type": "numeric",
+      "ops": [
+        "none imputation",
+        "IQR outlier capping"
+      ]
+    },
+    {
+      "feature": "cp",
+      "type": "numeric",
+      "ops": [
+        "none imputation",
+        "IQR outlier capping"
+      ]
+    },
+    {
+      "feature": "trestbps",
+      "type": "numeric",
+      "ops": [
+        "none imputation",
+        "IQR outlier capping"
+      ]
+    },
+    {
+      "feature": "chol",
+      "type": "numeric",
+      "ops": [
+        "none imputation",
+        "IQR outlier capping"
+      ]
+    },
+    {
+      "feature": "fbs",
+      "type": "numeric",
+      "ops": [
+        "none imputation",
+        "IQR outlier capping"
+      ]
+    },
+    {
+      "feature": "restecg",
+      "type": "numeric",
+      "ops": [
+        "none imputation",
+        "IQR outlier capping"
+      ]
+    },
+    {
+      "feature": "thalach",
+      "type": "numeric",
+      "ops": [
+        "none imputation",
+        "IQR outlier capping"
+      ]
+    },
+    {
+      "feature": "exang",
+      "type": "numeric",
+      "ops": [
+        "none imputation",
+        "IQR outlier capping"
+      ]
+    },
+    {
+      "feature": "oldpeak",
+      "type": "numeric",
+      "ops": [
+        "none imputation",
+        "IQR outlier capping"
+      ]
+    },
+    {
+      "feature": "slope",
+      "type": "numeric",
+      "ops": [
+        "none imputation",
+        "IQR outlier capping"
+      ]
+    },
+    {
+      "feature": "ca",
+      "type": "numeric",
+      "ops": [
+        "none imputation",
+        "IQR outlier capping"
+      ]
+    },
+    {
+      "feature": "thal",
+      "type": "numeric",
+      "ops": [
+        "none imputation",
+        "IQR outlier capping"
+      ]
+    }
+  ]
+}

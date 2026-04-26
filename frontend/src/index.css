@@ -1,0 +1,888 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   CSS Custom Properties – Dark (default)
+   ============================================================ */
+:root {
+  --bg-app:             #0f172a;
+  --bg-surface:         #1e293b;
+  --bg-surface-alt:     #334155;
+  --bg-surface-muted:   #475569;
+  --text-primary:       #f1f5f9;
+  --text-secondary:     #94a3b8;
+  --text-muted:         #64748b;
+  --border-color:       #334155;
+  --scrollbar-track:    #1e293b;
+  --scrollbar-thumb:    #4f46e5;
+  /* shadows */
+  --shadow-card:        0 4px 24px rgba(0,0,0,0.4);
+  --shadow-card-hover:  0 8px 40px rgba(0,0,0,0.55);
+}
+
+/* ============================================================
+   PREMIUM Light Mode – tinted navy-derived palette
+   ============================================================ */
+html:not(.dark) {
+  /* Page background: cool blue-gray, not white */
+  --bg-app:             #eef1f8;
+  /* Cards: crisp white with subtle warmth */
+  --bg-surface:         #ffffff;
+  /* Secondary surfaces: very light indigo-tinted gray */
+  --bg-surface-alt:     #f0f2f9;
+  /* Muted surfaces: slightly deeper */
+  --bg-surface-muted:   #e2e6f3;
+  /* Typography */
+  --text-primary:       #0d1b3e;   /* deep navy, not pure black */
+  --text-secondary:     #3d4f7c;   /* navy-blue for body copy */
+  --text-muted:         #7585ab;   /* muted blue-gray */
+  /* Borders: thin navy tint */
+  --border-color:       #d1d9ee;
+  /* Scrollbar */
+  --scrollbar-track:    #eef1f8;
+  --scrollbar-thumb:    #6366f1;
+  /* Elevated shadows for floating-card depth */
+  --shadow-card:        0 2px 12px rgba(15,23,66,0.08), 0 1px 3px rgba(15,23,66,0.06);
+  --shadow-card-hover:  0 8px 32px rgba(15,23,66,0.14), 0 2px 8px rgba(15,23,66,0.08);
+  --shadow-sidebar:     2px 0 20px rgba(15,23,66,0.07);
+  --shadow-header:      0 2px 16px rgba(15,23,66,0.09);
+}
+
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  /* Global theme transition – all elements inherit smooth color switching */
+  *, *::before, *::after {
+    transition-property: background-color, border-color, color, fill, stroke, box-shadow, transform, opacity;
+    transition-duration: 0.25s;
+    transition-timing-function: ease;
+  }
+
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui;
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+  ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
+}
+
+@layer components {
+  /* ---- Cards ---- */
+  .card {
+    @apply rounded-2xl p-6 border;
+    background-color: var(--bg-surface);
+    border-color: var(--border-color);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.3s ease, transform 0.25s ease;
+  }
+  .card:hover { box-shadow: var(--shadow-card-hover); }
+
+  /* ---- Buttons ---- */
+  .btn-primary {
+    @apply text-white font-semibold py-2.5 px-5 rounded-xl
+           disabled:opacity-40 disabled:cursor-not-allowed disabled:shadow-none disabled:transform-none
+           flex items-center gap-2 cursor-pointer;
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 55%, #818cf8 100%);
+    box-shadow: 0 2px 14px rgba(99,102,241,0.35);
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: linear-gradient(135deg, #4338ca 0%, #4f46e5 55%, #6366f1 100%);
+    box-shadow: 0 6px 24px rgba(99,102,241,0.5);
+    transform: translateY(-2px) scale(1.02);
+  }
+  .btn-primary:active:not(:disabled) {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 2px 8px rgba(99,102,241,0.3);
+  }
+  .btn-secondary {
+    @apply font-medium py-2.5 px-5 rounded-xl border
+           flex items-center gap-2 cursor-pointer;
+    background-color: var(--bg-surface-alt);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+  }
+  .btn-secondary:hover:not(:disabled) {
+    background-color: var(--bg-surface-muted);
+    border-color: #6366f1;
+    box-shadow: 0 3px 12px rgba(99,102,241,0.12);
+    transform: translateY(-1px) scale(1.01);
+  }
+  .btn-secondary:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+  .btn-secondary:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn-danger {
+    @apply text-white font-semibold py-2.5 px-5 rounded-xl
+           flex items-center gap-2 cursor-pointer;
+    background: linear-gradient(135deg, #ef4444, #f87171);
+    box-shadow: 0 2px 10px rgba(239,68,68,0.3);
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  }
+  .btn-danger:hover:not(:disabled) {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    box-shadow: 0 4px 18px rgba(239,68,68,0.45);
+    transform: translateY(-1px) scale(1.02);
+  }
+
+  /* ---- Inputs ---- */
+  .input {
+    @apply rounded-xl px-4 py-2.5 border
+           focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent
+           transition-all duration-200 w-full;
+    background-color: var(--bg-surface-alt);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+  }
+  .input::placeholder { color: var(--text-muted); }
+  .input:focus { box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
+
+  .select {
+    @apply rounded-xl px-4 py-2.5 border
+           focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent
+           transition-all duration-200 w-full cursor-pointer;
+    background-color: var(--bg-surface-alt);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+  }
+
+  /* ---- Badges ---- */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold;
+  }
+  .badge-success { @apply badge bg-accent-500/20 text-accent-400; }
+  .badge-warn    { @apply badge bg-warn-500/20 text-warn-400; }
+  .badge-danger  { @apply badge bg-danger-500/20 text-danger-400; }
+  .badge-info    { @apply badge bg-brand-500/20 text-brand-300; }
+
+  /* ---- Section headings ---- */
+  .section-title {
+    @apply text-xl font-bold mb-1;
+    color: var(--text-primary);
+  }
+  .section-subtitle {
+    @apply text-sm mb-6;
+    color: var(--text-secondary);
+  }
+
+  /* ---- Tables ---- */
+  .table-wrapper {
+    @apply overflow-x-auto rounded-xl border;
+    border-color: var(--border-color);
+    box-shadow: var(--shadow-card);
+  }
+  .data-table {
+    @apply w-full text-sm text-left;
+    color: var(--text-secondary);
+  }
+  .data-table thead {
+    @apply uppercase text-xs;
+    background-color: var(--bg-surface-alt);
+    color: var(--text-muted);
+  }
+  .data-table thead th { @apply px-4 py-3 font-semibold; }
+  .data-table tbody tr {
+    @apply border-t transition-colors;
+    border-color: var(--border-color);
+  }
+  .data-table tbody tr:hover { background-color: var(--bg-surface-alt); }
+  .data-table tbody td { @apply px-4 py-3; }
+}
+
+/* ============================================================
+   Glassmorphism panel
+   ============================================================ */
+.glass {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.dark .glass {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+html:not(.dark) .glass {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+/* ============================================================
+   Gradient text
+   ============================================================ */
+.gradient-text {
+  background: linear-gradient(135deg, #818cf8, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   Sidebar active state
+   ============================================================ */
+.nav-active {
+  background: linear-gradient(90deg, rgba(99,102,241,0.25), rgba(99,102,241,0.05));
+  border-left: 3px solid #6366f1;
+  color: #818cf8;
+}
+/* Light mode: stronger tint so active item stands out against the f5f7ff sidebar bg */
+html:not(.dark) .nav-active {
+  background: linear-gradient(90deg, rgba(79,70,229,0.18), rgba(99,102,241,0.05)) !important;
+  border-left-color: #4f46e5 !important;
+  color: #3730a3 !important;
+  font-weight: 700;
+}
+/* Sidebar nav item hover – scoped only to aside, does NOT touch btn-primary/secondary */
+html:not(.dark) aside nav button:not(.nav-active):hover {
+  background-color: rgba(99,102,241,0.08) !important;
+  color: #1e2d5a !important;
+}
+
+/* ============================================================
+   Spinner
+   ============================================================ */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 24px; height: 24px;
+  border: 3px solid rgba(99,102,241,0.2);
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* ============================================================
+   Progress bar
+   ============================================================ */
+.progress-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #6366f1, #34d399);
+  transition: width 0.5s ease;
+}
+
+/* ============================================================
+   Skeleton loading
+   ============================================================ */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+.dark .skeleton {
+  background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 8px;
+}
+html:not(.dark) .skeleton {
+  background: linear-gradient(90deg, #e2e6f3 25%, #f0f2f9 50%, #e2e6f3 75%);
+  background-size: 800px 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 8px;
+}
+
+
+/* ============================================================
+   Card hover glow
+   ============================================================ */
+.card-glow:hover {
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.08), 0 0 60px rgba(52, 211, 153, 0.04);
+}
+
+/* ============================================================
+   Fade-in-up animation
+   ============================================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out both;
+}
+
+/* ============================================================
+   Smooth page transitions
+   ============================================================ */
+.page-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s ease-out;
+}
+
+/* ============================================================
+   PREMIUM Light Mode – Tailwind class overrides
+   Maps hardcoded dark-palette classes → premium light values
+   ============================================================ */
+
+/* ── App shell ── */
+html:not(.dark) .bg-surface-900 { background-color: #eef1f8 !important; }
+html:not(.dark) .bg-surface-800 { background-color: #ffffff !important; }
+html:not(.dark) .bg-surface-700 { background-color: #f0f2f9 !important; }
+html:not(.dark) .bg-surface-600 { background-color: #e2e6f3 !important; }
+
+/* ── Borders ── */
+html:not(.dark) .border-surface-700 { border-color: #d1d9ee !important; }
+html:not(.dark) .border-surface-600 { border-color: #bdc7e0 !important; }
+
+/* ── Typography ── */
+html:not(.dark) .text-white     { color: #0d1b3e !important; }
+html:not(.dark) .text-slate-200 { color: #1e2d5a !important; }
+html:not(.dark) .text-slate-300 { color: #2e407a !important; }
+html:not(.dark) .text-slate-400 { color: #3d4f7c !important; }
+html:not(.dark) .text-slate-500 { color: #5a6e99 !important; }  /* clearer muted */
+html:not(.dark) .text-slate-600 { color: #7081a8 !important; }  /* was too light */
+html:not(.dark) .text-slate-700 { color: #8e9fc0 !important; }
+html:not(.dark) .placeholder-slate-500::placeholder { color: #7585ab !important; }
+
+/* ── Sidebar – slight indigo tint, not flat white ── */
+html:not(.dark) aside {
+  background-color: #f5f7ff !important;
+  border-right-color: #d1d9ee !important;
+  box-shadow: var(--shadow-sidebar) !important;
+}
+html:not(.dark) aside .border-b { border-bottom-color: #d1d9ee !important; }
+html:not(.dark) aside .border-t { border-top-color: #d1d9ee !important; }
+/* Logo label */
+html:not(.dark) aside .font-bold.text-white { color: #0d1b3e !important; }
+
+/* ── Header – glass-frosted with shadow ── */
+html:not(.dark) header {
+  background-color: rgba(245, 247, 255, 0.88) !important;
+  border-bottom-color: #d1d9ee !important;
+  box-shadow: var(--shadow-header) !important;
+}
+
+/* ── Hero section – rich gradient, not washed out ── */
+html:not(.dark) .from-brand-600\/30 {
+  --tw-gradient-from: rgba(55,48,163,0.30) !important; /* deep indigo anchor */
+}
+html:not(.dark) .via-surface-800 {
+  --tw-gradient-via: rgba(196,205,240,0.82) !important; /* cool periwinkle mid */
+}
+html:not(.dark) .to-accent-500\/20 {
+  --tw-gradient-to: rgba(16,185,129,0.18) !important;  /* emerald accent visible */
+}
+html:not(.dark) .border-brand-500\/20 { border-color: rgba(79,70,229,0.3) !important; }
+
+/* ── Pipeline step cards inner icon bg ── */
+html:not(.dark) .bg-surface-700 {
+  background-color: #f0f2f9 !important;
+}
+
+/* ── Feature capability cards ── */
+/* Keep them at full opacity so gradients remain visible in light */
+html:not(.dark) .from-rose-500\/20   { --tw-gradient-from: rgba(244,63,94,0.12) !important; }
+html:not(.dark) .to-orange-500\/20   { --tw-gradient-to:   rgba(249,115,22,0.12) !important; }
+html:not(.dark) .from-brand-500\/20  { --tw-gradient-from: rgba(99,102,241,0.12) !important; }
+html:not(.dark) .to-cyan-500\/20     { --tw-gradient-to:   rgba(6,182,212,0.12) !important; }
+html:not(.dark) .from-emerald-500\/20{ --tw-gradient-from: rgba(16,185,129,0.12) !important; }
+html:not(.dark) .to-teal-500\/20     { --tw-gradient-to:   rgba(20,184,166,0.12) !important; }
+html:not(.dark) .from-amber-500\/20  { --tw-gradient-from: rgba(245,158,11,0.12) !important; }
+html:not(.dark) .to-yellow-500\/20   { --tw-gradient-to:   rgba(234,179,8,0.12) !important; }
+/* Feature card icon bg */
+html:not(.dark) .bg-surface-800\/80 { background-color: rgba(255,255,255,0.75) !important; }
+
+/* ── Quick start guide inner panels ── */
+html:not(.dark) .bg-surface-700\/50 {
+  background-color: #f5f7ff !important;
+}
+
+/* ── Tech-stack pill row ── */
+html:not(.dark) .bg-surface-800 {
+  background-color: #ffffff !important;
+}
+
+/* ── Clock/date pill in hero ── */
+html:not(.dark) .bg-surface-700\/60 {
+  background-color: rgba(240,242,249,0.9) !important;
+}
+
+/* ── Glass panel (sidebar tip box) ── */
+html:not(.dark) .glass {
+  background: rgba(255,255,255,0.78) !important;
+  border: 1px solid rgba(99,102,241,0.18) !important;
+  box-shadow: 0 2px 12px rgba(15,23,66,0.07) !important;
+}
+
+/* ── Card hover glow – swap to navy-indigo for light ── */
+html:not(.dark) .card-glow:hover {
+  box-shadow: 0 8px 32px rgba(67,56,202,0.12), 0 2px 8px rgba(67,56,202,0.07) !important;
+}
+
+/* ── Badge stronger contrast in light ── */
+html:not(.dark) .badge-info    { color: #4338ca !important; background-color: rgba(99,102,241,0.12) !important; }
+html:not(.dark) .badge-success { color: #059669 !important; background-color: rgba(16,185,129,0.12) !important; }
+html:not(.dark) .badge-warn    { color: #b45309 !important; background-color: rgba(245,158,11,0.12) !important; }
+html:not(.dark) .badge-danger  { color: #b91c1c !important; background-color: rgba(239,68,68,0.12) !important; }
+
+/* ── Notification bell in header ── */
+html:not(.dark) #header-notification-btn {
+  background-color: #f0f2f9 !important;
+  color: #3d4f7c !important;
+}
+html:not(.dark) #header-notification-btn:hover {
+  background-color: #e2e6f3 !important;
+  color: #0d1b3e !important;
+}
+
+/* ============================================================
+   LIGHT MODE – Interactivity, Depth & Visual Hierarchy
+   ============================================================ */
+
+/* ── Cursor pointer on ALL interactive elements ── */
+html:not(.dark) button,
+html:not(.dark) [role="button"],
+html:not(.dark) a {
+  cursor: pointer !important;
+}
+
+/* ── Pipeline step card hover (group card buttons on Dashboard) ──
+   These cards use `group card` className + hover: variants in JSX.
+   We reinforce the hover lift + indigo shadow here for light mode. */
+html:not(.dark) main .card {
+  cursor: pointer;
+  transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.2s ease !important;
+}
+html:not(.dark) main .card:hover {
+  box-shadow: 0 8px 32px rgba(55,48,163,0.13), 0 2px 8px rgba(55,48,163,0.07) !important;
+  border-color: rgba(99,102,241,0.35) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ── Quick Start Guide inner step panels ── */
+html:not(.dark) .bg-surface-700\/50 {
+  background-color: #f5f7ff !important;
+  border: 1px solid #d1d9ee !important;
+  box-shadow: 0 1px 6px rgba(15,23,66,0.06) !important;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease !important;
+}
+html:not(.dark) .bg-surface-700\/50:hover {
+  box-shadow: 0 4px 20px rgba(55,48,163,0.1), 0 1px 4px rgba(55,48,163,0.06) !important;
+  border-color: rgba(99,102,241,0.3) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ── Tech-stack pills – hover lift ── */
+html:not(.dark) .bg-surface-800.border-surface-700 {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d9ee !important;
+  box-shadow: 0 1px 4px rgba(15,23,66,0.06) !important;
+  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s !important;
+}
+html:not(.dark) .bg-surface-800.border-surface-700:hover {
+  box-shadow: 0 3px 12px rgba(55,48,163,0.1) !important;
+  border-color: rgba(99,102,241,0.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ── Feature capability cards – gradient tints stay visible ── */
+html:not(.dark) .from-rose-500\/20,
+html:not(.dark) .from-brand-500\/20,
+html:not(.dark) .from-emerald-500\/20,
+html:not(.dark) .from-amber-500\/20 {
+  border-width: 1px !important;
+  border-style: solid !important;
+}
+
+/* ── Hero section text readability on periwinkle gradient ── */
+html:not(.dark) .from-brand-600\/30 ~ .relative .text-slate-300 {
+  color: #1e2d5a !important;
+}
+
+/* ── Input/Select focus ring – stronger in light mode ── */
+html:not(.dark) .input:focus,
+html:not(.dark) .select:focus {
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.2), 0 1px 4px rgba(79,70,229,0.15) !important;
+  border-color: #6366f1 !important;
+}
+
+/* ── Distinct layer hierarchy: page < card < inner panel ── */
+/* page:  --bg-app   #eef1f8 */
+/* card:  --bg-surface #ffffff */
+/* inner: --bg-surface-alt #f0f2f9 */
+/* The overrides above already set these; this rule prevents any
+   accidental same-bg collapse between card and its parent. */
+html:not(.dark) .card {
+  background-color: #ffffff !important;
+}
+
+/* ── "API Connected" status pill – clearer green in light ── */
+html:not(.dark) .bg-accent-500\/10 { background-color: rgba(16,185,129,0.1) !important; }
+html:not(.dark) .border-accent-500\/20 { border-color: rgba(16,185,129,0.25) !important; }
+html:not(.dark) .text-accent-400 { color: #059669 !important; }
+
+/* ── Brand -400 text (quick-start arrow links) ── */
+html:not(.dark) .text-brand-400 { color: #4f46e5 !important; }
+html:not(.dark) .text-brand-300 { color: #4338ca !important; }
+
+/* ── Disabled state distinction ──
+   Active btn-primary has full shadow; disabled collapses it */
+html:not(.dark) .btn-primary:disabled,
+html:not(.dark) button[disabled] {
+  opacity: 0.4 !important;
+  box-shadow: none !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* ============================================================
+   PAGE-SPECIFIC LIGHT MODE FIXES
+   Targeting hardcoded dark-mode Tailwind classes in JSX
+   ============================================================ */
+
+/* ── Generic inline dark panels used across ALL pages ──
+   bg-surface-800, bg-surface-800/50, bg-surface-800/80 etc. ── */
+html:not(.dark) [class*="bg-surface-800"] {
+  background-color: #ffffff !important;
+  border-color: #d1d9ee !important;
+}
+html:not(.dark) [class*="bg-surface-700"] {
+  background-color: #f0f2f9 !important;
+  border-color: #d1d9ee !important;
+}
+html:not(.dark) [class*="border-surface-600"] {
+  border-color: #d1d9ee !important;
+}
+html:not(.dark) [class*="border-surface-700"] {
+  border-color: #d1d9ee !important;
+}
+
+/* ── Toggle switch off-state pill ──
+   bg-surface-700 border-surface-600 → muted blue-gray */
+html:not(.dark) button[class*="bg-surface-700"] {
+  background-color: #e2e6f3 !important;
+  border-color: #c4cde6 !important;
+}
+
+/* ── Feature Engineering: ProposalCard disabled state ──
+   border-surface-600 bg-surface-800/40 → clean white card */
+html:not(.dark) div[class*="border-surface-600"][class*="bg-surface-800"] {
+  background-color: #ffffff !important;
+  border-color: #d1d9ee !important;
+  box-shadow: 0 1px 4px rgba(15,23,66,0.06) !important;
+}
+
+/* ── Feature Engineering: Tab inactive buttons ── */
+html:not(.dark) button[class*="hover:bg-surface-700"] {
+  background-color: transparent !important;
+  color: #3d4f7c !important;
+}
+html:not(.dark) button[class*="hover:bg-surface-700"]:hover {
+  background-color: rgba(99,102,241,0.09) !important;
+  color: #1e2d5a !important;
+}
+
+/* ── Feature Engineering: Active tab button ── */
+html:not(.dark) button[class*="bg-brand-600\\/30"] {
+  background-color: rgba(79,70,229,0.12) !important;
+  border-color: rgba(79,70,229,0.3) !important;
+  color: #3730a3 !important;
+}
+
+/* ── Feature Engineering: Operation / column toggle buttons (inactive) ──
+   border-surface-600 text-slate-400 */
+html:not(.dark) button[class*="border-surface-600"][class*="text-slate-400"] {
+  background-color: #f5f7ff !important;
+  border-color: #d1d9ee !important;
+  color: #3d4f7c !important;
+}
+html:not(.dark) button[class*="border-surface-600"][class*="text-slate-400"]:hover {
+  background-color: #eaedfa !important;
+  border-color: rgba(99,102,241,0.35) !important;
+  color: #0d1b3e !important;
+}
+
+/* ── Feature Engineering: feature-importance selector rows ──
+   border-surface-600 text-slate-400 hover:border-surface-500 */
+html:not(.dark) button[class*="border-surface-600"]:not([class*="nav-active"]) {
+  background-color: #f8f9fe !important;
+  border-color: #d1d9ee !important;
+  color: #3d4f7c !important;
+}
+html:not(.dark) button[class*="border-surface-600"]:not([class*="nav-active"]):hover {
+  background-color: #eef1f8 !important;
+  border-color: rgba(99,102,241,0.4) !important;
+  color: #1e2d5a !important;
+}
+
+/* ── Evaluation: MetricBadge panels ──
+   bg-surface-800 border-surface-700 */
+html:not(.dark) div[class*="bg-surface-800"][class*="border-surface-700"] {
+  background-color: #ffffff !important;
+  border-color: #d1d9ee !important;
+  box-shadow: 0 1px 6px rgba(15,23,66,0.07) !important;
+}
+/* MetricBadge highlighted (border-brand-500/50 bg-brand-500/10) */
+html:not(.dark) div[class*="border-brand-500\\/50"][class*="bg-brand-500\\/10"] {
+  background-color: rgba(79,70,229,0.07) !important;
+  border-color: rgba(79,70,229,0.3) !important;
+}
+
+/* ── Evaluation: ReproducibilityStrip ──
+   bg-surface-800/50 */
+html:not(.dark) div[class*="bg-surface-800\\/50"] {
+  background-color: #f5f7ff !important;
+  border-color: #d1d9ee !important;
+}
+
+/* ── Evaluation: StrategyOption inactive ──
+   border-surface-600 bg-surface-800 text-slate-400 */
+html:not(.dark) button[class*="bg-surface-800"][class*="border-surface-600"] {
+  background-color: #f5f7ff !important;
+  border-color: #d1d9ee !important;
+  color: #3d4f7c !important;
+}
+html:not(.dark) button[class*="bg-surface-800"][class*="border-surface-600"]:hover {
+  background-color: #eaedfa !important;
+  border-color: rgba(99,102,241,0.4) !important;
+  color: #1e2d5a !important;
+}
+
+/* ── Evaluation: Threshold preset pill buttons ──
+   border-surface-600 text-slate-500 hover:border-slate-500 */
+html:not(.dark) button[class*="border-surface-600"][class*="text-slate-500"] {
+  background-color: #f5f7ff !important;
+  border-color: #d1d9ee !important;
+  color: #5a6e99 !important;
+}
+html:not(.dark) button[class*="border-surface-600"][class*="text-slate-500"]:hover {
+  background-color: #e8ecf9 !important;
+  border-color: rgba(99,102,241,0.4) !important;
+  color: #1e2d5a !important;
+}
+
+/* ── Evaluation: Debug toggle button normal state ─ */
+html:not(.dark) button[class*="border-surface-600"][class*="text-slate-500"]:not([disabled]) {
+  background-color: #f0f2f9 !important;
+  border-color: #d1d9ee !important;
+  color: #3d4f7c !important;
+}
+html:not(.dark) button[class*="border-surface-600"][class*="text-slate-500"]:hover:not([disabled]) {
+  background-color: #e2e6f3 !important;
+  border-color: rgba(99,102,241,0.35) !important;
+  color: #0d1b3e !important;
+}
+
+/* ── Evaluation: ROC-AUC row / Class distribution panel ──
+   p-3 rounded-xl bg-surface-800 border border-surface-600 */
+html:not(.dark) div[class*="rounded-xl"][class*="bg-surface-800"][class*="border-surface-600"] {
+  background-color: #f5f7ff !important;
+  border-color: #d1d9ee !important;
+}
+
+/* ── Column analysis mini-cards (Feature Eng dataset analysis) ──
+   bg-surface-800 border border-surface-700 */
+html:not(.dark) div[class*="rounded-lg"][class*="bg-surface-800"][class*="border-surface-700"] {
+  background-color: #f0f2f9 !important;
+  border-color: #d1d9ee !important;
+}
+
+/* ── btn-ghost (collapse chevron in ThresholdOptimizer) ── */
+html:not(.dark) .btn-ghost {
+  color: #3d4f7c !important;
+  background-color: transparent !important;
+}
+html:not(.dark) .btn-ghost:hover {
+  background-color: rgba(99,102,241,0.08) !important;
+  color: #0d1b3e !important;
+}
+
+/* ── code blocks / inline <code> tags in light mode ── */
+html:not(.dark) code[class*="bg-surface-900"],
+html:not(.dark) code[class*="bg-surface-800"] {
+  background-color: #eef1f8 !important;
+  border-color: #d1d9ee !important;
+  color: #3730a3 !important;
+}
+
+/* ── Preview value chips in FE expanded panel ── */
+html:not(.dark) span[class*="bg-surface-800"][class*="text-slate-400"] {
+  background-color: #f0f2f9 !important;
+  border-color: #d1d9ee !important;
+  color: #3d4f7c !important;
+}
+
+/* ── Log result text rows (green/yellow) - keep coloured in light ── */
+html:not(.dark) p[class*="border-green-500\\/20"] {
+  background-color: rgba(16,185,129,0.06) !important;
+  border-color: rgba(16,185,129,0.2) !important;
+  color: #065f46 !important;
+}
+html:not(.dark) p[class*="border-yellow-500\\/20"] {
+  background-color: rgba(245,158,11,0.06) !important;
+  border-color: rgba(245,158,11,0.2) !important;
+  color: #92400e !important;
+}
+
+/* ── Make btn-secondary look proper vivid in light ── */
+html:not(.dark) .btn-secondary {
+  background-color: #ffffff !important;
+  border-color: #d1d9ee !important;
+  color: #0d1b3e !important;
+  box-shadow: 0 1px 4px rgba(15,23,66,0.08) !important;
+}
+html:not(.dark) .btn-secondary:hover:not(:disabled) {
+  background-color: #f0f2f9 !important;
+  border-color: #6366f1 !important;
+  color: #0d1b3e !important;
+  box-shadow: 0 3px 12px rgba(99,102,241,0.15) !important;
+  transform: translateY(-1px) scale(1.01) !important;
+}
+
+/* ============================================================
+   PAGE NAVIGATOR  — prev/next step bar
+   ============================================================ */
+
+.page-navigator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 24px;
+  border-top: 1px solid #334155;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background 0.3s ease, border-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.nav-prev-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #334155;
+  color: #94a3b8;
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease, border-color 0.2s ease,
+              background 0.2s ease, transform 0.2s ease;
+}
+.nav-prev-btn:hover {
+  color: #e2e8f0;
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.09);
+  transform: translateX(-2px);
+}
+
+.nav-next-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  color: #fff;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 60%, #818cf8 100%);
+  box-shadow: 0 2px 12px rgba(99, 102, 241, 0.35);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: box-shadow 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+}
+.nav-next-btn:hover {
+  box-shadow: 0 4px 22px rgba(99, 102, 241, 0.55);
+  transform: translateX(2px) scale(1.02);
+  filter: brightness(1.1);
+}
+.nav-next-btn:active {
+  transform: translateX(1px) scale(0.99);
+  box-shadow: 0 1px 8px rgba(99, 102, 241, 0.3);
+}
+
+@media (max-width: 640px) {
+  .nav-btn-label { display: none; }
+  .nav-prev-btn, .nav-next-btn { padding: 8px 12px; }
+}
+
+.nav-steps {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+  justify-content: center;
+  overflow: hidden;
+}
+.nav-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, width 0.25s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+.nav-dot:hover { transform: scale(1.4); }
+.nav-dot-active {
+  width: 22px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+}
+.nav-dot-done  { background: #4f46e5; opacity: 0.7; }
+.nav-dot-idle  { background: #334155; }
+
+.nav-step-label {
+  font-size: 11px;
+  color: #64748b;
+  margin-left: 10px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.nav-end-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 16px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.08);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  white-space: nowrap;
+}
+
+/* ── Light mode ── */
+html:not(.dark) .page-navigator {
+  background: rgba(238, 241, 248, 0.95);
+  border-top-color: #d1d9ee;
+}
+html:not(.dark) .nav-prev-btn {
+  color: #3d4f7c;
+  border-color: #d1d9ee;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(15,23,66,0.07);
+}
+html:not(.dark) .nav-prev-btn:hover {
+  color: #0d1b3e;
+  border-color: #6366f1;
+  background: #f0f2f9;
+  box-shadow: 0 2px 10px rgba(99,102,241,0.12);
+  transform: translateX(-2px);
+}
+html:not(.dark) .nav-dot-idle  { background: #c4cde6; }
+html:not(.dark) .nav-dot-done  { background: #6366f1; opacity: 0.6; }
+html:not(.dark) .nav-step-label { color: #5a6e99; }
+html:not(.dark) .nav-end-badge {
+  color: #065f46;
+  background: rgba(16,185,129,0.08);
+  border-color: rgba(16,185,129,0.25);
+}
