@@ -1,0 +1,39 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+
+# Node / Frontend (not needed in backend image)
+frontend/
+node_modules/
+
+# Git
+.git/
+.gitignore
+
+# Environment secrets (NEVER bake .env into Docker image)
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Render
+render.yaml
+
+# Docs
+README.md
