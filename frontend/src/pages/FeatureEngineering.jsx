@@ -7,7 +7,8 @@ import {
 } from 'lucide-react'
 import axios from 'axios'
 
-const api = axios.create({ baseURL: '/api', timeout: 120_000 })
+const BASE = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api'
+const api = axios.create({ baseURL: BASE, timeout: 120_000 })
 
 // ─── Small UI helpers ─────────────────────────────────────────────────────────
 function Alert({ type, children, onDismiss }) {

@@ -9,7 +9,9 @@
  */
 import axios from 'axios'
 
-const BASE = '/api'
+// In production (Vercel): VITE_API_URL = https://your-backend.a.run.app
+// In local dev: VITE_API_URL is empty → falls back to '/api' → vite proxy handles it
+const BASE = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : '/api'
 
 // ── General-purpose client (2-minute timeout) ─────────────────────────
 const api = axios.create({
