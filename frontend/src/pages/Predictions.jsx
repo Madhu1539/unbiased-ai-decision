@@ -125,7 +125,7 @@ export default function Predictions() {
       {batch && (
         <>
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="card text-center">
               <p className="text-2xl font-bold text-slate-900 dark:text-white">{batch.count}</p>
               <p className="text-xs text-slate-400 mt-1">Test Samples Shown</p>

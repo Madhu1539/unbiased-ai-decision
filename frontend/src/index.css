@@ -886,3 +886,81 @@ html:not(.dark) .nav-end-badge {
   background: rgba(16,185,129,0.08);
   border-color: rgba(16,185,129,0.25);
 }
+
+/* ============================================================
+   RESPONSIVE — Global Overflow & Mobile Layout Fixes
+   ============================================================ */
+
+/* Prevent horizontal scroll at root level */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* All recharts containers fill parent without fixed widths */
+.recharts-wrapper {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* Table wrappers: always horizontally scrollable on small screens */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure cards never overflow their parent */
+.card {
+  min-width: 0;
+}
+
+/* Sidebar shadow when open on mobile */
+aside.translate-x-0 {
+  box-shadow: 4px 0 32px rgba(0,0,0,0.4);
+}
+
+/* ── Mobile-specific overrides (< 640px) ── */
+@media (max-width: 639px) {
+  /* Reduce main padding */
+  main { padding: 1rem !important; }
+
+  /* Compact card padding */
+  .card { padding: 1rem !important; }
+
+  /* Smaller section titles */
+  .section-title { font-size: 1.05rem; }
+
+  /* Compact page navigator */
+  .page-navigator { padding: 8px 10px; gap: 6px; }
+
+  /* Hide step label on very small screens */
+  .nav-step-label { display: none; }
+
+  /* Drop zone padding reduction */
+  .border-dashed.rounded-2xl { padding: 2rem 1rem !important; }
+
+  /* Prevent any flex row from overflowing */
+  .flex { flex-wrap: wrap; }
+
+  /* But NOT for flex items that must NOT wrap (specific overrides) */
+  .flex.flex-nowrap,
+  .flex.items-center.gap-1\.5,
+  nav .flex,
+  header .flex { flex-wrap: nowrap; }
+}
+
+/* ── Tablet-specific (640–1023px) ── */
+@media (min-width: 640px) and (max-width: 1023px) {
+  main { padding: 1.25rem !important; }
+}
+
+/* ── Light mode — hamburger button ── */
+html:not(.dark) #sidebar-toggle-btn {
+  background-color: #f0f2f9 !important;
+  color: #3d4f7c !important;
+}
+html:not(.dark) #sidebar-toggle-btn:hover {
+  background-color: #e2e6f3 !important;
+  color: #0d1b3e !important;
+}
+

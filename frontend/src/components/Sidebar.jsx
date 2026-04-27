@@ -2,7 +2,7 @@ import React from 'react'
 import {
   Upload, Sliders, BarChart2, Layers, Cpu, Play,
   TrendingUp, ShieldCheck, Crosshair, FileText,
-  Brain, ChevronRight, LayoutDashboard, Sparkles, GitFork, Scale,
+  Brain, ChevronRight, LayoutDashboard, Sparkles, GitFork, Scale, X,
 } from 'lucide-react'
 
 const NAV_ITEMS = [
@@ -22,18 +22,37 @@ const NAV_ITEMS = [
   { id: 'reports',     label: 'Reports',              icon: FileText },
 ]
 
-export default function Sidebar({ active, onNavigate }) {
+export default function Sidebar({ active, onNavigate, sidebarOpen, setSidebarOpen }) {
   return (
-    <aside className="w-64 min-h-screen bg-surface-800 border-r border-surface-700 flex flex-col flex-shrink-0">
+    <aside
+      className={`
+        fixed inset-y-0 left-0 z-40 w-64 flex flex-col flex-shrink-0
+        bg-surface-800 border-r border-surface-700
+        transition-transform duration-300 ease-in-out
+        lg:relative lg:translate-x-0 lg:z-auto
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}
+    >
       {/* Logo */}
-      <div className="flex items-center gap-3 px-6 py-5 border-b border-surface-700">
-        <div className="w-9 h-9 rounded-xl bg-gradient-brand flex items-center justify-center shadow-lg">
-          <Brain size={18} className="text-white" />
+      <div className="flex items-center justify-between gap-3 px-6 py-5 border-b border-surface-700">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-gradient-brand flex items-center justify-center shadow-lg flex-shrink-0">
+            <Brain size={18} className="text-white" />
+          </div>
+          <div>
+            <p className="font-bold text-white text-sm leading-tight">Unbiased AI</p>
+            <p className="text-xs text-slate-400">Decision Dashboard</p>
+          </div>
         </div>
-        <div>
-          <p className="font-bold text-white text-sm leading-tight">Unbiased AI</p>
-          <p className="text-xs text-slate-400">Decision Dashboard</p>
-        </div>
+
+        {/* Close button — mobile only */}
+        <button
+          className="lg:hidden w-8 h-8 rounded-lg flex items-center justify-center text-slate-400 hover:text-white hover:bg-surface-700 transition-colors flex-shrink-0"
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Close sidebar"
+        >
+          <X size={16} />
+        </button>
       </div>
 
       {/* Navigation */}

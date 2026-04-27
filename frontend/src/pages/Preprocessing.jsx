@@ -659,7 +659,7 @@ export default function Preprocessing() {
                 .filter(c => c.type === 'numeric' && c.missing > 0).length
               const hasMissing = numMissing > 0
               return (
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {[['median','Median'],['mean','Mean'],['knn','KNN'],['none','None']].map(([v, l]) => (
                     <OptionPill
                       key={v}
@@ -748,7 +748,7 @@ export default function Preprocessing() {
                 .filter(c => c.type === 'categorical' && c.missing > 0).length
               const hasMissing = catMissing > 0
               return (
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   <OptionPill active={catImputer === 'most_frequent'} onClick={() => setCatImputer('most_frequent')}>Most Frequent</OptionPill>
                   <OptionPill active={catImputer === 'constant'}      onClick={() => setCatImputer('constant')}>Fill "Missing"</OptionPill>
                   <OptionPill
@@ -774,7 +774,7 @@ export default function Preprocessing() {
               Low-cardinality Encoding
               <span className="text-slate-600 ml-1">(≤ {highCardThresh} unique)</span>
             </p>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {LOW_ENC_OPTIONS.map(({ id, label }) => (
                 <OptionPill key={id} active={lowCardEnc === id} onClick={() => setLowCardEnc(id)}>{label}</OptionPill>
               ))}
@@ -787,7 +787,7 @@ export default function Preprocessing() {
               High-cardinality Encoding
               <span className="text-slate-600 ml-1">(&gt; {highCardThresh} unique)</span>
             </p>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {HIGH_ENC_OPTIONS.map(({ id, label }) => (
                 <OptionPill key={id} active={highCardEnc === id} onClick={() => setHighCardEnc(id)}>{label}</OptionPill>
               ))}

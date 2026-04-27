@@ -1,6 +1,6 @@
 {
   "pipeline_version": "2.0",
-  "created_at": "2026-04-26T19:27:53.781591+00:00",
+  "created_at": "2026-04-27T04:42:01.593303+00:00",
   "random_state": null,
   "library_versions": {
     "scikit-learn": "1.8.0",
@@ -16,51 +16,52 @@
     "low_card_encoding": "ohe",
     "high_card_encoding": "frequency",
     "high_card_threshold": 15,
-    "drop_correlated": false,
+    "drop_correlated": true,
     "correlation_threshold": 0.95,
     "force_reapply": false,
     "drop_cols_before_pipeline": []
   },
   "feature_names_before": [
-    "age",
-    "sex",
-    "cp",
-    "trestbps",
-    "chol",
-    "fbs",
-    "restecg",
-    "thalach",
-    "exang",
-    "oldpeak",
-    "slope",
-    "ca",
-    "thal"
+    "ID_Customer",
+    "Age",
+    "Experience",
+    "Income",
+    "ZIP Code",
+    "Family",
+    "CCAvg",
+    "Education",
+    "Mortgage",
+    "Securities Account",
+    "CD Account",
+    "Online",
+    "CreditCard"
   ],
   "feature_names_after": [
-    "age",
-    "sex",
-    "cp",
-    "trestbps",
-    "chol",
-    "restecg",
-    "thalach",
-    "exang",
-    "oldpeak",
-    "slope",
-    "ca",
-    "thal"
+    "ID_Customer",
+    "Age",
+    "Income",
+    "ZIP Code",
+    "Family",
+    "CCAvg",
+    "Education",
+    "Mortgage",
+    "Online",
+    "CreditCard"
   ],
   "n_features_before": 13,
-  "n_features_after": 12,
+  "n_features_after": 10,
   "dropped": {
     "variance": [
-      "fbs"
+      "Securities Account",
+      "CD Account"
     ],
-    "correlation": []
+    "correlation": [
+      "Experience"
+    ]
   },
   "transformation_summary": [
     {
-      "feature": "age",
+      "feature": "ID_Customer",
       "type": "numeric",
       "ops": [
         "none imputation",
@@ -68,7 +69,7 @@
       ]
     },
     {
-      "feature": "sex",
+      "feature": "Age",
       "type": "numeric",
       "ops": [
         "none imputation",
@@ -76,7 +77,7 @@
       ]
     },
     {
-      "feature": "cp",
+      "feature": "Experience",
       "type": "numeric",
       "ops": [
         "none imputation",
@@ -84,7 +85,7 @@
       ]
     },
     {
-      "feature": "trestbps",
+      "feature": "Income",
       "type": "numeric",
       "ops": [
         "none imputation",
@@ -92,7 +93,7 @@
       ]
     },
     {
-      "feature": "chol",
+      "feature": "ZIP Code",
       "type": "numeric",
       "ops": [
         "none imputation",
@@ -100,7 +101,7 @@
       ]
     },
     {
-      "feature": "fbs",
+      "feature": "Family",
       "type": "numeric",
       "ops": [
         "none imputation",
@@ -108,7 +109,7 @@
       ]
     },
     {
-      "feature": "restecg",
+      "feature": "CCAvg",
       "type": "numeric",
       "ops": [
         "none imputation",
@@ -116,7 +117,7 @@
       ]
     },
     {
-      "feature": "thalach",
+      "feature": "Education",
       "type": "numeric",
       "ops": [
         "none imputation",
@@ -124,7 +125,7 @@
       ]
     },
     {
-      "feature": "exang",
+      "feature": "Mortgage",
       "type": "numeric",
       "ops": [
         "none imputation",
@@ -132,7 +133,7 @@
       ]
     },
     {
-      "feature": "oldpeak",
+      "feature": "Securities Account",
       "type": "numeric",
       "ops": [
         "none imputation",
@@ -140,7 +141,7 @@
       ]
     },
     {
-      "feature": "slope",
+      "feature": "CD Account",
       "type": "numeric",
       "ops": [
         "none imputation",
@@ -148,7 +149,7 @@
       ]
     },
     {
-      "feature": "ca",
+      "feature": "Online",
       "type": "numeric",
       "ops": [
         "none imputation",
@@ -156,7 +157,7 @@
       ]
     },
     {
-      "feature": "thal",
+      "feature": "CreditCard",
       "type": "numeric",
       "ops": [
         "none imputation",

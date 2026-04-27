@@ -710,7 +710,7 @@ export default function Training({ onNavigate, selectedModels }) {
               {/* Scaler type */}
               <div>
                 <label className="block text-sm font-medium text-white mb-2">Scaler</label>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {[['standard', 'StandardScaler', 'Zero mean, unit variance'], ['minmax', 'MinMaxScaler', 'Scale to [0, 1] range'], ['none', 'No Scaling', 'Pass raw values through']].map(
                     ([val, name, desc]) => (
                       <button

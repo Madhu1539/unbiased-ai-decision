@@ -608,7 +608,7 @@ function LiveThresholdPanel({ initialThreshold = 0.5, debugMode, onMetricsUpdate
       {metrics && (
         <div className="space-y-4">
           {/* TP / FP / TN / FN */}
-          <div className="grid grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {[
               { k: 'TP', v: m.tp, color: 'text-indigo-300',  bg: 'bg-indigo-500/10',  border: 'border-indigo-500/30' },
               { k: 'TN', v: m.tn, color: 'text-emerald-300', bg: 'bg-emerald-500/10', border: 'border-emerald-500/30' },

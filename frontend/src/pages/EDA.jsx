@@ -468,7 +468,7 @@ export default function EDA() {
                   {overview && (
                     <div className="card">
                       <h3 className="font-semibold text-white mb-4 flex items-center gap-2 text-sm"><Layers size={15} className="text-brand-400" /> Feature Type Breakdown</h3>
-                      <div className="grid grid-cols-3 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         {[{ label: 'Numerical', value: overview.feature_types.numerical, color: '#6366f1' }, { label: 'Categorical', value: overview.feature_types.categorical, color: '#34d399' }, { label: 'Boolean', value: overview.feature_types.boolean, color: '#f97316' }].map(({ label, value, color }) => (
                           <div key={label} className="flex flex-col items-center gap-1 py-3 rounded-xl" style={{ background: `${color}15`, border: `1px solid ${color}30` }}>
                             <span className="text-2xl font-bold" style={{ color }}>{value}</span>
